@@ -164,4 +164,4 @@ public class App {
 
 ### Salida por consola
 
-*(La salida mostrará primero la lista de personas organizada alfabéticamente o según la edad por el método InOrder, y luego estructurada por la raíz mediante PreOrder).*
+![alt text](assets/image.png)
