@@ -1,5 +1,8 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTree<T extends Comparable<T>> {
-    private Node<T> root;
+    private Node<Integer> root;
     public int peso;
 
     /// Constructor SIEMPRE inicializa LAS VARIABLES (ROOT)
@@ -12,31 +15,31 @@ public class BinaryTree<T extends Comparable<T>> {
         return root == null;
     }
 
-    public Node<T> getRoot() {
+    public Node<Integer> getRoot() {
         return root;
     }
 
-    public void setRoot(Node<T> node) {
+    public void setRoot(Node<Integer> node) {
         root = node;
     }
 
-    public void setRoot(T value) {
-        Node<T> node = new Node<T>(value);
+    public void setRoot(Integer value) {
+        Node<Integer> node = new Node<Integer>(value);
         root = node;
     }
 
-    public void insert(T value) { // 10
-        Node<T> node = new Node<T>(value);
+    public void insert(Integer value) { // 10
+        Node<Integer> node = new Node<Integer>(value);
         root = insertRecursivo(root, node);
     }
 
-    public void insert(Node<T> value) { // 10
+    public void insert(Node<Integer> value) { // 10
         root = insertRecursivo(root, value);
         peso ++;
     }
 
     // recursivo para insertar valores ARBOL BINARIO
-    private Node<T> insertRecursivo(Node<T> actual, Node<T> nodeInsertar) {
+    private Node<Integer> insertRecursivo(Node<Integer> actual, Node<Integer> nodeInsertar) {
         if (actual == null) {
             return nodeInsertar;
         }
@@ -57,7 +60,7 @@ public class BinaryTree<T extends Comparable<T>> {
         preOrderRecursivo(root);
     }
 
-    private void preOrderRecursivo(Node<T> actual) {
+    private void preOrderRecursivo(Node<Integer> actual) {
         if (actual == null)
             return;
         System.out.print(actual + " ");
@@ -71,7 +74,7 @@ public class BinaryTree<T extends Comparable<T>> {
         posOrderRecursivo(root);
     }
 
-    private void posOrderRecursivo(Node<T> actual) {
+    private void posOrderRecursivo(Node<Integer> actual) {
         if (actual == null)
             return;
         posOrderRecursivo(actual.getLeft());
@@ -87,21 +90,20 @@ public class BinaryTree<T extends Comparable<T>> {
         inOrderRecursivo(root);
     }
 
-    private void inOrderRecursivo(Node<T> actual) {
+    private void inOrderRecursivo(Node<Integer> actual) {
         if (actual == null)
             return;
         inOrderRecursivo(actual.getLeft());
         System.out.println(actual + " ");
         inOrderRecursivo(actual.getRight());
     }
-
     // niveles
 
     public void niveles() {
         nivelesRecursivo(root, 0);
     }
 
-    private void nivelesRecursivo(Node<T> actual, int nivel) {
+    private void nivelesRecursivo(Node<Integer> actual, int nivel) {
         if (actual == null)
             return;
         System.out.println("Nivel " + nivel + ": " + actual);
@@ -115,7 +117,7 @@ public class BinaryTree<T extends Comparable<T>> {
         return alturaRecursivo(root);
     }
 
-    private int alturaRecursivo(Node<T> actual) {
+    private int alturaRecursivo(Node<Integer> actual) {
         if (actual == null)
             return 0;
         int alturaIzquierda = alturaRecursivo(actual.getLeft());
@@ -129,7 +131,7 @@ public class BinaryTree<T extends Comparable<T>> {
         return pesoRecursivo(root);
     }
 
-    private int pesoRecursivo(Node<T> actual) {
+    private int pesoRecursivo(Node<Integer> actual) {
         if (actual == null)
             return 0;
         int pesoIzquierdo = pesoRecursivo(actual.getLeft());
@@ -139,5 +141,38 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public int getPeso() {
         return peso();
+    }
+
+    public void printTree() {
+    printTreeRecursivo(root, 0);
+    }
+
+
+    private void printTreeRecursivo(Node<Integer> actual, int nivel) {
+        if (actual == null) {
+        return;
+        }
+
+        printTreeRecursivo(actual.getRight(), nivel + 1);
+
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("     ");
+    }
+
+        System.out.println(actual.getValue());
+
+        printTreeRecursivo(actual.getLeft(), nivel + 1);
+    }
+
+    public void inOrderInverso() {
+        inOrderRecursivoInverso(root);
+    }
+
+    private void inOrderRecursivoInverso(Node<Integer> actual) {
+        if (actual == null)
+            return;
+            inOrderRecursivoInverso(actual.getLeft());
+            System.out.println(actual + " ");
+            inOrderRecursivoInverso(actual.getRight());
     }
 }

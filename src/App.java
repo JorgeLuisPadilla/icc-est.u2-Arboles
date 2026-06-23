@@ -3,23 +3,42 @@ import models.Person;
 public class App {
     public static void main(String[] args) throws Exception {
         //runIntTree();
-        runPersonTree();
+        //runPersonTree();
+        runEjercicio1();
+        runEjercicio2();
     }
 
 
-    public static void runPersonTree() {
-        BinaryTree<Person> personTree = new BinaryTree<>();
-        personTree.insert(new Person("Alice", 30));
-        personTree.insert(new Person("Bob", 25));
-        personTree.insert(new Person("Diego", 35));
-        personTree.insert(new Person("Rafael", 35));
-        personTree.insert(new Person("Ana", 35));
-
-        System.out.println("InOrder");
-        personTree.inOrder();
-        System.out.println("PreOrder");
-        personTree.preOrder();
+    public static void runEjercicio1(){
+        Ejercicio1 ejercicio1 = new Ejercicio1();
+        int[] numeros = new int[]{5, 3, 7, 2, 4, 6, 8};
+        ejercicio1.insert(numeros);
     }
+
+    public static void runEjercicio2(){
+        Ejercicio2 ejercicio2 = new Ejercicio2();
+        Node<Integer> root = new Node<>(5);
+        Node<Integer> leftChild = new Node<>(3);
+        Node<Integer> rightChild = new Node<>(7);
+        root.setLeft(leftChild);
+        root.setRight(rightChild);
+
+        ejercicio2.invert(root);
+    }
+
+   // public static void runPersonTree() {
+        //BinaryTree<Person> personTree = new BinaryTree<>();
+        //personTree.insert(new Person("Alice", 30));
+        //personTree.insert(new Person("Bob", 25));
+        //personTree.insert(new Person("Diego", 35));
+        //personTree.insert(new Person("Rafael", 35));
+        //personTree.insert(new Person("Ana", 35));
+
+        //System.out.println("InOrder");
+        //personTree.inOrder();
+        //System.out.println("PreOrder");
+        //personTree.preOrder();
+   // }
 
     //private static void runIntTree() {
         //IntTree arbolNumeros = new IntTree(); /// CLASE ARBOL
