@@ -1,4 +1,3 @@
-import models.Person;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -10,21 +9,36 @@ public class App {
 
 
     public static void runEjercicio1(){
+        System.out.println("Ejercicio 1:");
         Ejercicio1 ejercicio1 = new Ejercicio1();
         int[] numeros = new int[]{5, 3, 7, 2, 4, 6, 8};
         ejercicio1.insert(numeros);
     }
 
-    public static void runEjercicio2(){
-        Ejercicio2 ejercicio2 = new Ejercicio2();
-        Node<Integer> root = new Node<>(5);
-        Node<Integer> leftChild = new Node<>(3);
-        Node<Integer> rightChild = new Node<>(7);
-        root.setLeft(leftChild);
-        root.setRight(rightChild);
+    public static void runEjercicio2() {
 
-        ejercicio2.invert(root);
-    }
+    BinaryTree<Integer> tree = new BinaryTree<>();
+
+    tree.insert(5);
+    tree.insert(3);
+    tree.insert(7);
+    tree.insert(2);
+    tree.insert(4);
+    tree.insert(6);
+    tree.insert(8);
+
+    System.out.println("Ejercicio 2:");
+    
+    System.out.println("Arbol original:");
+    tree.printTree();
+
+    Ejercicio2 ejercicio2 = new Ejercicio2();
+
+    tree.setRoot(ejercicio2.invert(tree.getRoot()));
+
+    System.out.println("Arbol invertido:");
+    tree.printTree();
+}
 
    // public static void runPersonTree() {
         //BinaryTree<Person> personTree = new BinaryTree<>();

@@ -1,3 +1,4 @@
+
 public class Ejercicio1 {
 
     public void insert(int[] numeros) {
@@ -7,7 +8,7 @@ public class Ejercicio1 {
         for (int numero : numeros) {
             arbol.insert(numero);
         }
-        
+
         System.out.println("Imprimiendo el árbol:");
         arbol.printTree();
     }

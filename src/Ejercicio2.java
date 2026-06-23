@@ -1,3 +1,4 @@
+
 public class Ejercicio2 {
 
     public Node<Integer> invert(Node<Integer> root) {
@@ -7,9 +8,9 @@ public class Ejercicio2 {
         }
 
         // Intercambiar hijos
-        Node<Integer> temp = root.getLeft();
+        Node<Integer> aux = root.getLeft();
         root.setLeft(root.getRight());
-        root.setRight(temp);
+        root.setRight(aux);
 
         // Invertir subárboles
         invert(root.getLeft());

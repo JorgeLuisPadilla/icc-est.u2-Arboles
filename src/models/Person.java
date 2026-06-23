@@ -1,4 +1,4 @@
-package models;
+package trees.models;
 
 public class Person implements Comparable<Person> {
     private String name;

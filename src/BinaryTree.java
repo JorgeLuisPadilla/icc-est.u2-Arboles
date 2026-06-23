@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class BinaryTree<T extends Comparable<T>> {
     private Node<Integer> root;
@@ -144,7 +142,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public void printTree() {
-    printTreeRecursivo(root, 0);
+        printTreeRecursivo(root, 0);
     }
 
 
@@ -162,17 +160,5 @@ public class BinaryTree<T extends Comparable<T>> {
         System.out.println(actual.getValue());
 
         printTreeRecursivo(actual.getLeft(), nivel + 1);
-    }
-
-    public void inOrderInverso() {
-        inOrderRecursivoInverso(root);
-    }
-
-    private void inOrderRecursivoInverso(Node<Integer> actual) {
-        if (actual == null)
-            return;
-            inOrderRecursivoInverso(actual.getLeft());
-            System.out.println(actual + " ");
-            inOrderRecursivoInverso(actual.getRight());
     }
 }
