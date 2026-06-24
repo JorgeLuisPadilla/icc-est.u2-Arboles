@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -5,8 +6,11 @@ public class App {
         //runPersonTree();
         runEjercicio1();
         runEjercicio2();
+        runEjercicio3();
+        runEjercicio4();
     }
 
+    //Ejercicio 1: Insertar elementos en un árbol binario
 
     public static void runEjercicio1(){
         System.out.println("Ejercicio 1:");
@@ -14,6 +18,8 @@ public class App {
         int[] numeros = new int[]{5, 3, 7, 2, 4, 6, 8};
         ejercicio1.insert(numeros);
     }
+
+    //Ejercicio 2: Invertir un árbol binario
 
     public static void runEjercicio2() {
 
@@ -27,6 +33,7 @@ public class App {
     tree.insert(6);
     tree.insert(8);
 
+    System.out.println("");
     System.out.println("Ejercicio 2:");
     
     System.out.println("Arbol original:");
@@ -38,7 +45,62 @@ public class App {
 
     System.out.println("Arbol invertido:");
     tree.printTree();
-}
+    }   
+
+    //Ejercicio 3: Listar los niveles de un árbol binario de listas enlazadas
+
+    private static void runEjercicio3() {
+
+    System.out.println("");    
+    System.out.println("Ejercicio 3:");
+
+    BinaryTree<Integer> tree = new BinaryTree<>();
+
+    int[] numeros = {5, 3, 7, 2, 4, 6, 8};
+
+    for (int numero : numeros) {
+        tree.insert(numero);
+    }
+
+    Ejercicio3 ejercicio3 = new Ejercicio3();
+
+    List<List<Node>> niveles = ejercicio3.listNiveles(tree.getRoot());
+
+    for (List<Node> nivel : niveles) {
+        for (int i = 0; i < nivel.size(); i++) {
+
+        System.out.print(nivel.get(i).getValue());
+
+        if (i < nivel.size() - 1) {
+            System.out.print(" -> ");
+        }
+    }
+
+    System.out.println();
+        }
+    }
+
+    //Ejercicio 4: Calcular la profundidad máxima de un árbol binario
+
+    public static void runEjercicio4() {
+    System.out.println("");
+    System.out.println("Ejercicio 4:");
+
+    BinaryTree<Integer> tree = new BinaryTree<>();
+
+    int[] numeros = {4, 2, 7, 1, 3, 8, 6, 5, 1, 2};
+    
+    for (int numero : numeros) {
+        tree.insert(numero);
+    }
+
+    Ejercicio4 ejercicio4 = new Ejercicio4();
+
+    int profundidad = ejercicio4.maxDepth(tree.getRoot());
+
+    System.out.println("Profundidad máxima: " + profundidad);
+
+    }
 
    // public static void runPersonTree() {
         //BinaryTree<Person> personTree = new BinaryTree<>();

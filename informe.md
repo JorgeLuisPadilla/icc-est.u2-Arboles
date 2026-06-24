@@ -59,10 +59,72 @@ public Node<Integer> invert(Node<Integer> root) {
         return root;
     }
 ```
+# Ejercicio 03: Listar niveles en Listas Enlazadas
 
-### Salida por consola
+En el ejercicio 3 lo que se
+
+### Código
+
+```java
+public List<List<Node>> listNiveles(Node root) {
+        List<List<Node>> niveles = new ArrayList<>();
+        llenarNiveles(root, 0, niveles);
+        return niveles;
+    }
+
+    private void llenarNiveles(Node actual, int nivel, List<List<Node>> niveles) {
+
+        if (actual == null) {
+            return;
+        }
+
+        if (niveles.size() == nivel) {
+            niveles.add(new ArrayList<>());
+        }
+
+        niveles.get(nivel).add(actual);
+
+        llenarNiveles(actual.getLeft(), nivel + 1, niveles);
+        llenarNiveles(actual.getRight(), nivel + 1, niveles);
+    }
+```
+
+---
+
+# Ejercicio 02: Inversión del Árbol Binario
+
+En este ejercicio se desarrolló un algoritmo recursivo encargado de invertir completamente la estructura del árbol. Para ello, en cada nodo se intercambian las referencias del hijo izquierdo y del hijo derecho. Posteriormente, el proceso se repite recursivamente sobre ambos subárboles hasta recorrer toda la estructura.
+
+Gracias a esta operación, el árbol original queda reflejado de forma simétrica.
+
+### Código
+
+```java
+public Node<Integer> invert(Node<Integer> root) {
+
+        if (root == null) {
+            return null;
+        }
+
+        // Intercambiar hijos
+        Node<Integer> aux = root.getLeft();
+        root.setLeft(root.getRight());
+        root.setRight(aux);
+
+        // Invertir subárboles
+        invert(root.getLeft());
+        invert(root.getRight());
+
+        return root;
+    }
+```
+
+
+### Salida por consola del Ejercicio 1 al 2
 
 ![alt text](image.png)
+
+### Salida por consola del Ejercicio 3 al 4
 
 # Explicacion
 
