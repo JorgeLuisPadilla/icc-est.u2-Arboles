@@ -10,23 +10,17 @@
 
 # Ejercicio 01: Inserción de Arreglos en un Árbol Binario
 
-Se implementó una clase denominada `Ejercicio1`, cuya función consiste en recibir un arreglo de números enteros e insertar cada elemento dentro de un árbol binario de búsqueda. La inserción se realiza mediante un recorrido del arreglo utilizando un ciclo `for-each`, permitiendo construir el árbol de manera automática.
-
-Una vez agregados todos los elementos, se utiliza el método `printTree()` para mostrar gráicamente la estructura generada.
+Lo que pide este ejercicio es agarrar un arreglo de números y meterlos uno por uno en un árbol binario. Recorro el arreglo con un `for` y por cada número le digo al árbol "inserta esto", usando el método `insert()` que ya tenía hecho en `BinaryTree` (si el número es menor va a la izquierda, si es mayor o igual va a la derecha). Al final lo muestro en consola con `printTree()`.
 
 ### Código
 
 ```java
-public void insert(int[] numeros) {
-
+public BinaryTree<Integer> insert(int[] numeros) {
         BinaryTree<Integer> arbol = new BinaryTree<>();
-
         for (int numero : numeros) {
             arbol.insert(numero);
         }
-
-        System.out.println("Imprimiendo el árbol:");
-        arbol.printTree();
+        return arbol;
     }
 ```
 
@@ -34,99 +28,108 @@ public void insert(int[] numeros) {
 
 # Ejercicio 02: Inversión del Árbol Binario
 
-En este ejercicio se desarrolló un algoritmo recursivo encargado de invertir completamente la estructura del árbol. Para ello, en cada nodo se intercambian las referencias del hijo izquierdo y del hijo derecho. Posteriormente, el proceso se repite recursivamente sobre ambos subárboles hasta recorrer toda la estructura.
-
-Gracias a esta operación, el árbol original queda reflejado de forma simétrica.
+Este ejercicio pide voltear el árbol como un espejo: lo que estaba a la izquierda pasa a la derecha y al revés, en todos los niveles. En cada nodo simplemente intercambio su hijo izquierdo con su hijo derecho, y luego repito esto mismo en cada hijo usando recursividad. Así cada nodo se encarga de su propio cambio y le pasa la tarea a sus hijos, hasta invertir todo el árbol. El caso base es cuando el nodo es `null`: ahí no hay nada que invertir y simplemente regreso.
 
 ### Código
 
 ```java
-public Node<Integer> invert(Node<Integer> root) {
-
-        if (root == null) {
+    public Node<Integer> invertTree(Node<Integer> nodoActual) {
+        if (nodoActual == null) {
             return null;
         }
 
-        // Intercambiar hijos
-        Node<Integer> aux = root.getLeft();
-        root.setLeft(root.getRight());
-        root.setRight(aux);
+        // Intercambiar los hijos del nodo actual
+        Node<Integer> hijoIzquierdo = nodoActual.getLeft();
+        nodoActual.setLeft(nodoActual.getRight());
+        nodoActual.setRight(hijoIzquierdo);
 
-        // Invertir subárboles
-        invert(root.getLeft());
-        invert(root.getRight());
+        // Repetir el mismo intercambio en cada subárbol
+        invertTree(nodoActual.getLeft());
+        invertTree(nodoActual.getRight());
 
-        return root;
+        return nodoActual;
     }
 ```
 # Ejercicio 03: Listar niveles en Listas Enlazadas
 
-En el ejercicio 3 lo que se
+Aquí se pide separar los nodos del árbol según el nivel en el que están. Uso una lista de listas: la de afuera representa los niveles, y cada lista de adentro tiene los nodos de ese nivel. Recorro el árbol con recursividad pasando un número que indica en qué nivel estoy (la raíz empieza en 0). Si todavía no existe una lista para ese nivel la creo, agrego el nodo ahí, y sigo bajando por la izquierda y la derecha sumando 1 al nivel cada vez. Al final solo recorro esa lista de listas para imprimir cada nivel.
 
 ### Código
 
 ```java
-public List<List<Node>> listNiveles(Node root) {
-        List<List<Node>> niveles = new ArrayList<>();
-        llenarNiveles(root, 0, niveles);
-        return niveles;
+    public List<List<Node<Integer>>> listLevels(Node<Integer> raiz) {
+    List<List<Node<Integer>>> niveles = new ArrayList<>();
+    agregarPorNivel(raiz, 0, niveles);
+    return niveles;
+}
+
+private void agregarPorNivel(Node<Integer> actual, int nivel, List<List<Node<Integer>>> niveles) {
+    if (actual == null) {
+        return;
     }
+    if (niveles.size() == nivel) {
+        niveles.add(new ArrayList<>());
+    }
+    niveles.get(nivel).add(actual);
 
-    private void llenarNiveles(Node actual, int nivel, List<List<Node>> niveles) {
+    agregarPorNivel(actual.getLeft(), nivel + 1, niveles);
+    agregarPorNivel(actual.getRight(), nivel + 1, niveles);
+}
 
-        if (actual == null) {
-            return;
+public void imprimirArbolCentrado(Node<Integer> raiz) {
+    List<List<Node<Integer>>> niveles = listLevels(raiz);
+    int altura = niveles.size();
+
+    for (int i = 0; i < altura; i++) {
+        StringBuilder fila = new StringBuilder();
+        for (int espacio = 0; espacio < altura - i; espacio++) {
+            fila.append("  ");
         }
 
-        if (niveles.size() == nivel) {
-            niveles.add(new ArrayList<>());
+        List<Node<Integer>> nivel = niveles.get(i);
+        for (int j = 0; j < nivel.size(); j++) {
+            fila.append(nivel.get(j).getValue());
+            if (j < nivel.size() - 1) {
+                fila.append(" ");
+            }
         }
 
-        niveles.get(nivel).add(actual);
-
-        llenarNiveles(actual.getLeft(), nivel + 1, niveles);
-        llenarNiveles(actual.getRight(), nivel + 1, niveles);
+        System.out.println(fila);
     }
+}
 ```
 
 ---
 
-# Ejercicio 02: Inversión del Árbol Binario
+# Ejercicio 04: Calcular la profundidad maxima
 
-En este ejercicio se desarrolló un algoritmo recursivo encargado de invertir completamente la estructura del árbol. Para ello, en cada nodo se intercambian las referencias del hijo izquierdo y del hijo derecho. Posteriormente, el proceso se repite recursivamente sobre ambos subárboles hasta recorrer toda la estructura.
-
-Gracias a esta operación, el árbol original queda reflejado de forma simétrica.
+Este ejercicio pide calcular qué tan "alto" es el árbol, o sea cuántos niveles tiene desde la raíz hasta la rama más larga. Si el nodo no existe, su profundidad es 0. Si existe, calculo la profundidad del lado izquierdo y la del derecho por separado, me quedo con la más grande, y le sumo 1 por el nodo en el que estoy parado. Como esto se repite en cada nodo, al final la función compara todas las ramas y devuelve el camino más largo del árbol.
 
 ### Código
 
 ```java
-public Node<Integer> invert(Node<Integer> root) {
-
-        if (root == null) {
-            return null;
+    public int maxDepth(Node<Integer> raiz) {
+        if (raiz == null) {
+            return 0;
         }
 
-        // Intercambiar hijos
-        Node<Integer> aux = root.getLeft();
-        root.setLeft(root.getRight());
-        root.setRight(aux);
+        int profundidadIzquierda = maxDepth(raiz.getLeft());
+        int profundidadDerecha = maxDepth(raiz.getRight());
 
-        // Invertir subárboles
-        invert(root.getLeft());
-        invert(root.getRight());
-
-        return root;
+        return Math.max(profundidadIzquierda, profundidadDerecha) + 1;
     }
 ```
 
 
 ### Salida por consola del Ejercicio 1 al 2
 
-![alt text](image.png)
+![alt text](assets/Captura%20de%20pantalla%202026-06-22%20220013.png)
 
 ### Salida por consola del Ejercicio 3 al 4
 
-# Explicacion
+![alt text](<assets/Captura de pantalla 2026-06-23 214700.png>)
+
+# Explicacion todos los ejercicios
 
 En el ejercicio 1 lo que hice fue insertar los numeros en el arreglo para despues por medio de BinaryTree cree las soluciones haciendo uso de los niveles y usando inOrder el cual me dio el arbol en orden y lo unico que hice fue ordenar por niveles saltanto espacios por cada nivel con el uso de printTree(), aplicando de la misma manera como lo hicimos con los otros ejemplos. 
-En el ejercicio 2 fue similar pero me conplico por el cambio a Nodo, la solucion fue sencilla, solo use el metodo InOrder pero ivertido, al reves, quedando asi en orden descendente, y por ultimo utilice el metodo printTree() para ordenar de tal manera que mi arbol quedo ordenado de cierta manera.
+En el ejercicio 2 fue similar pero me conplico por el cambio a Nodo, la solucion fue sencilla, solo use el metodo InOrder pero ivertido, al reves, quedando asi en orden descendente, y por ultimo utilice el metodo printTree() para ordenar de tal manera que mi arbol quedo ordenado de cierta manera.En el ejercicio 3 fue sencillo, lo unico que se hizo para separar los nodos fue guardarlos en un arraylist para despues ordenar de arriba hacia abajo, usando imprimirArbolCentrado dando espacios por niveles. En el ejercicio 4 fue sencillo usando Math.max es sencillo por que solo regresamos el ultimo nivel del arbol.

@@ -1,13 +1,13 @@
+package structures.trees;
+import structures.node.Node;
 
-// Clase que representa un árbol binario de enteros
 
-public class IntTree {
-
+public class BinaryTree<T extends Comparable<T>> {
     private Node<Integer> root;
     public int peso;
 
     /// Constructor SIEMPRE inicializa LAS VARIABLES (ROOT)
-    public IntTree() {
+    public BinaryTree() {
         this.root = null;
         this.peso = 0;
     }
@@ -46,7 +46,7 @@ public class IntTree {
         }
 
         // validar si es mayoy o nenor y decidir si lo ingerso a la der o izq
-        if (actual.getValue() > nodeInsertar.getValue()) {
+        if (actual.getValue().compareTo(nodeInsertar.getValue()) > 0) {
             actual.setLeft(insertRecursivo(actual.getLeft(), nodeInsertar));
         } else {
             actual.setRight(insertRecursivo(actual.getRight(), nodeInsertar));
@@ -95,10 +95,9 @@ public class IntTree {
         if (actual == null)
             return;
         inOrderRecursivo(actual.getLeft());
-        System.out.print(actual + " ");
+        System.out.println(actual + " ");
         inOrderRecursivo(actual.getRight());
     }
-
     // niveles
 
     public void niveles() {
@@ -144,4 +143,28 @@ public class IntTree {
     public int getPeso() {
         return peso();
     }
+
+    public void printTree() {
+        printTreeRecursivo(root, 0);
+    }
+
+
+    private void printTreeRecursivo(Node<Integer> actual, int nivel) {
+        if (actual == null) {
+        return;
+        }
+
+        printTreeRecursivo(actual.getRight(), nivel + 1);
+
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("     ");
+    }
+
+        System.out.println(actual.getValue());
+
+        printTreeRecursivo(actual.getLeft(), nivel + 1);
+    }
+
+    
+    
 }
