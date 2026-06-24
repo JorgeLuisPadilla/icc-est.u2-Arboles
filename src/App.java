@@ -1,4 +1,9 @@
 import java.util.List;
+import java.util.Set;
+
+import collections.sets.Sets;
+import models.Contacto;
+
 import structures.node.Node;
 import structures.trees.BinaryTree;
 import structures.trees.Ejercicio1;
@@ -10,12 +15,51 @@ import structures.trees.Ejercicio4;
 
 public class App {
     public static void main(String[] args) {
-        runEjercicio1();
-        runEjercicio2();
-        runEjercicio3();
-        runEjercicio4();
+        //runEjercicio1();
+        //runEjercicio2();
+        //runEjercicio3();
+        //runEjercicio4();
+
+        runSets();
+
     }
  
+    private static void runSets() {
+        Sets sets = new Sets();
+        //Primera implementacion hashSet
+        System.out.println("HashSet:");
+        Set<String> hashSet = sets.construirHashSet();
+        System.out.println(hashSet);
+        System.out.println("Tamaño: " + hashSet.size());
+        System.out.println(hashSet.contains("F"));
+
+        //Segunda implementacion linkedHashSet
+        System.out.println("LinkedHashSet:");
+        Set<String> linkedHashSet = sets.construirLinkedHashSet();
+        System.out.println(linkedHashSet);
+        System.out.println("Tamaño: " + linkedHashSet.size());
+        System.out.println(linkedHashSet.contains("F"));
+
+        //Tercera implementacion treeSet
+        System.out.println("TreeSet:");
+        Set<String> treeSet = sets.construirTreeSet();
+        System.out.println(treeSet);
+        System.out.println("Tamaño: " + treeSet.size());
+        System.out.println(treeSet.contains("F"));
+
+        //Cuarta implementacion treeSet con comparador
+        System.out.println("TreeSet con comparador:");
+        Set<Contacto> tCSet = sets.construirTreeSetConComparador();
+        System.out.println(tCSet);
+        System.out.println(tCSet.size());
+
+        // Quinta implementacion HashSet con objetos Contacto
+        System.out.println("HashSet con objetos Contacto:");
+        Set<Contacto> hCSet = sets.construirHashSetContacto();
+        System.out.println(hCSet);
+        System.out.println(hCSet.size());
+    }
+
     // Ejercicio 1: Insertar elementos en un árbol binario
     public static void runEjercicio1() {
         System.out.println("Ejercicio 1:");
