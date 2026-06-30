@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Set;
 
+import collections.mapas.Maps;
 import collections.sets.Sets;
 import models.Contacto;
 
@@ -19,11 +20,28 @@ public class App {
         //runEjercicio2();
         //runEjercicio3();
         //runEjercicio4();
-
-        runSets();
+        //runSets();
+        runMaps();
+        runLinkedHashMap();
+        runTreeMap();
 
     }
  
+    private static void runTreeMap() {
+        Maps maps = new Maps();
+        maps.cTreeMap();
+    }
+
+    private static void runLinkedHashMap() {
+        Maps maps = new Maps();
+        maps.construirLinkedHashMap();
+    }
+
+    private static void runMaps() {
+        Maps maps = new Maps();
+        maps.construirHashMap();
+    }
+
     private static void runSets() {
         Sets sets = new Sets();
         //Primera implementacion hashSet
