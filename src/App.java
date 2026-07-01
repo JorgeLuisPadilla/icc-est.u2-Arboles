@@ -4,7 +4,7 @@ import java.util.Set;
 import collections.mapas.Maps;
 import collections.sets.Sets;
 import models.Contacto;
-
+import structures.graphs.Graph;
 import structures.node.Node;
 import structures.trees.BinaryTree;
 import structures.trees.Ejercicio1;
@@ -24,9 +24,32 @@ public class App {
         runMaps();
         runLinkedHashMap();
         runTreeMap();
+        runGraph();
 
     }
  
+    private static void runGraph() {
+       Graph<String> g = new Graph<>();
+
+        g.add("A");
+        g.add("B");
+        g.add("C");
+        g.add("D");
+        g.add("J");
+
+        g.addEdgeUni("A", "B");
+        g.addEdgeUni("C", "A");
+        g.addEdgeUni("C", "D");
+        g.addEdgeUni("B", "C");
+        g.addEdgeUni("B", "D");
+        g.addEdgeUni("D", "J");
+        g.addEdgeUni("J","D");
+
+
+        System.out.println("Graph:");
+        g.printGraph();
+    }
+
     private static void runTreeMap() {
         Maps maps = new Maps();
         maps.cTreeMap();
