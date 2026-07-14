@@ -425,3 +425,83 @@ En una clase Graph.java creamos y usamos grafos con ayuda de nodos, mapas y los 
 
 ## Salida de consola
 ![alt text](<assets/Captura de pantalla 2026-07-01 180238.png>)
+
+# 5. Graph Traversal (BFS y DFS)
+
+### Fecha: 13/07/26
+
+## Descripción:
+
+En esta práctica implementamos dos algoritmos de búsqueda sobre grafos: **Breadth-First Search (BFS)** y **Depth-First Search (DFS)**. Ambos recorren un grafo partiendo de un nodo inicial hasta encontrar un nodo destino.
+
+Para BFS se utilizó una **Queue (LinkedList)** para recorrer el grafo por niveles y un mapa de padres para reconstruir el camino encontrado. Para DFS se implementó una búsqueda recursiva utilizando **backtracking**, guardando los nodos visitados y el camino actual durante la exploración.
+
+## Código
+
+### BFS
+
+```java
+@Override
+public PathResult<T> find(Graph<T> graph, T start, T end) {
+
+    Queue<T> queue = new LinkedList<>();
+    Set<T> visitados = new LinkedHashSet<>();
+    Map<Node<T>, Node<T>> parent = new LinkedHashMap<>();
+
+    queue.add(start);
+    visitados.add(start);
+    parent.put(new Node<>(start), null);
+
+    while (!queue.isEmpty()) {
+
+        T current = queue.poll();
+
+        if (current.equals(end)) {
+            return new PathResult<>(visitados, buildPath(parent, end));
+        }
+
+        for (Node<T> vecino : graph.getVecinos(current)) {
+
+            if (!visitados.contains(vecino.getValue())) {
+
+                visitados.add(vecino.getValue());
+                queue.add(vecino.getValue());
+                parent.put(vecino, new Node<>(current));
+            }
+        }
+    }
+
+    return new PathResult<>(visitados, new LinkedHashSet<>());
+}
+```
+
+### DFS
+
+```java
+private boolean dfs(Graph<T> graph, T current, T end,
+                    Set<T> visited, Set<T> path) {
+
+    visited.add(current);
+    path.add(current);
+
+    if (current.equals(end)) {
+        return true;
+    }
+
+    for (Node<T> vecino : graph.getVecinos(current)) {
+
+        if (!visited.contains(vecino.getValue())) {
+
+            if (dfs(graph, vecino.getValue(), end, visited, path)) {
+                return true;
+            }
+        }
+    }
+
+    path.remove(current);
+    return false;
+}
+```
+
+## Salida de consola
+![alt text](<assets/Captura de pantalla 2026-07-13 214848.png>)

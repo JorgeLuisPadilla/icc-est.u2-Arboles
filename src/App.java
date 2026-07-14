@@ -5,6 +5,8 @@ import collections.mapas.Maps;
 import collections.sets.Sets;
 import models.Contacto;
 import structures.graphs.Graph;
+import structures.graphs.PathResult;
+import structures.graphs.implementations.BFSPathFinder;
 import structures.node.Node;
 import structures.trees.BinaryTree;
 import structures.trees.Ejercicio1;
@@ -21,13 +23,36 @@ public class App {
         //runEjercicio3();
         //runEjercicio4();
         //runSets();
-        runMaps();
-        runLinkedHashMap();
-        runTreeMap();
-        runGraph();
-
+        //runMaps();
+        //runLinkedHashMap();
+        //runTreeMap();
+        //runGraph();
+        //runSets();
+        runBFS();
     }
  
+    public static void runBFS() {
+
+    Graph<String> graph = new Graph<>();
+        graph.addEdge("A", "B");
+        graph.addEdge("A", "C");
+        graph.addEdge("B", "D");
+        graph.addEdge("B", "E");
+        graph.addEdge("C", "F");
+        graph.addEdge("E", "G");
+        graph.addEdge("F", "H");
+
+        graph.printGraph();
+        System.out.println("-------BFS-------");
+
+        BFSPathFinder<String> bfs = new BFSPathFinder<>();
+
+        PathResult<String> resultado = bfs.find(graph, "A", "H");
+
+        System.out.println("Visitados: " + resultado.getVisitados());
+        System.out.println("Camino: " + resultado.getPath());
+    }
+
     private static void runGraph() {
        Graph<String> g = new Graph<>();
 
